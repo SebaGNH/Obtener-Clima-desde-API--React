@@ -1,10 +1,13 @@
 import React, {Fragment} from 'react';
-import './App.css';
+import Header from './components/Header';
+
 
 function App() {
   return (
     <Fragment>
-      <h1>Hola</h1>
+      <Header
+        titulo="Clima React App"
+      />
     </Fragment>
   );
 }
