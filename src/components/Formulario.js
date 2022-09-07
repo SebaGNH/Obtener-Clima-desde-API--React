@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 
 
-const Formulario = () => {
-  const [busqueda, setBusqueda] = useState({
-    ciudad:'',
-    pais:''
-  });
+const Formulario = ({busqueda, setBusqueda,setConsutar}) => {
   const [error, setError] = useState(false);
 
   //Funcion que coloca los elementos en el state
@@ -18,17 +14,18 @@ const Formulario = () => {
   //Submit
   const submitHandler = (e) => {
     e.preventDefault();
-
-    
+  
+  
     //Validar
     if (busqueda.ciudad.trim() === "" || busqueda.pais.trim() === "") {
       setError(true);
       return;
     }
     setError(false);
-    
-
+  
+  
     //Pasar al componente principal
+    setConsutar(true);
   }
 
 
