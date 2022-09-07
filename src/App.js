@@ -9,22 +9,26 @@ function App() {
     pais:''
   });
   const [consultar, setConsutar] = useState(false);
+  const [resultadoApi, setResultadoApi] = useState({});
 
   //Para que consulte la api solo si cambia entre true a false
+  //Solo consulta si es true
   useEffect(()=>{
-    //key 39d3f92c88350d8f0a3b39e4579e3b07
-    const consultarApi = async () => {
-      const {ciudad,pais} = busqueda;
-      const API_key = '39d3f92c88350d8f0a3b39e4579e3b07';
-      const respuesta = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${API_key}`);
-
-    const data =  await respuesta.json();
-    console.clear();
-    console.log(data.weather[0].description)
-    //console.log(frase[0])
-    //frase.then(resultado => console.log(resultado));
+    if (consultar) {      
+      //key 39d3f92c88350d8f0a3b39e4579e3b07
+      const consultarApi = async () => {
+        const {ciudad,pais} = busqueda;
+        const API_key = '39d3f92c88350d8f0a3b39e4579e3b07';
+        const url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${API_key}`;
+        const respuesta = await fetch(url);
+        const data =  await respuesta.json();
+        
+        setResultadoApi(data);
+        //console.clear();
+        //console.log(data.weather[0].description);
+      }
+      consultarApi(); //Se llama adentro
     }
-    consultarApi(); //Se llama adentro
   },[consultar]);
 
 
