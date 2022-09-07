@@ -5,8 +5,8 @@ const Formulario = () => {
   const [busqueda, setBusqueda] = useState({
     ciudad:'',
     pais:''
-
   });
+  const [error, setError] = useState(false);
 
   //Funcion que coloca los elementos en el state
   const handleChange = (e) => {
@@ -15,11 +15,28 @@ const Formulario = () => {
     });
   }
 
+  //Submit
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    
+    //Validar
+    if (busqueda.ciudad.trim() === "" || busqueda.pais.trim() === "") {
+      setError(true);
+      return;
+    }
+    setError(false);
+    
+
+    //Pasar al componente principal
+  }
 
 
   return (
     <>
-      <form action="">
+      <form action="" onSubmit={submitHandler}>
+        {/*error? <p className='red darken-4 error'>Todos los campos son obligatorios</p>: null*/}
+
         <div className="input-field col s12">
           <input 
             type='text'
@@ -48,6 +65,21 @@ const Formulario = () => {
           </select>
           <label htmlFor="pais">País: </label>
         </div> 
+        <div className="input-field col s12">
+        {error?
+          <button 
+            type='submit'
+            className='waves-effect waves-light btn-large btn-block red accent-4'
+            >Buscar Clima
+          </button>        
+        :
+          <button 
+            type='submit'
+            className='waves-effect waves-light btn-large btn-block blue accent-4'
+            >Buscar Clima
+          </button>        
+        }
+        </div>
       </form>
     </>
   );
