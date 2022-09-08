@@ -25,7 +25,8 @@ function App() {
         const data =  await respuesta.json();
         
         setResultadoApi(data);
-        console.clear();
+        setConsutar(false); //Lo volvemos a false ya que en el formulario se hizo true, se renueva el false para que valide una nueva consulta evitando multiples consultas
+        //console.clear();
         //console.log(data.weather[0].description);
         //console.log(data.name);
       }
