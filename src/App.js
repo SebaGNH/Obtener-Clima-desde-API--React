@@ -1,6 +1,7 @@
 import React, {Fragment, useState,useEffect} from 'react';
-import Formulario from './components/Formulario';
 import Header from './components/Header';
+import Formulario from './components/Formulario';
+import Clima from './components/Clima';
 
 
 function App() {
@@ -24,8 +25,9 @@ function App() {
         const data =  await respuesta.json();
         
         setResultadoApi(data);
-        //console.clear();
+        console.clear();
         //console.log(data.weather[0].description);
+        //console.log(data.name);
       }
       consultarApi(); //Se llama adentro
     }
@@ -49,7 +51,9 @@ function App() {
               />
             </div>
             <div className="col m6 s12">
-              2
+              <Clima
+                resultadoApi={resultadoApi}
+              />
             </div>
           </div>
         </div>
