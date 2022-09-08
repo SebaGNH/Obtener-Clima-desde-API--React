@@ -1,5 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import Formulario from './Formulario';
+
+
 const Header = ({titulo}) => {
   return (
     <>
@@ -13,4 +16,9 @@ const Header = ({titulo}) => {
     </>
   );
 }
+Header.propTypes = {
+  titulo: PropTypes.string.isRequired
+}
+
+
 export default Header;

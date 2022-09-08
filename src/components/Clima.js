@@ -1,12 +1,13 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
 
 const Clima = ({resultadoApi}) => {
   
   //Si no tine nombre corta ejecución
   if (!resultadoApi.name) return null;
+  if (resultadoApi.code === 404) return null;
   
-  console.log(resultadoApi)
+  //console.log(resultadoApi)
   //Grados Kelvin
   const kelvin = (parseFloat(resultadoApi.main.temp- 273.15,10)).toFixed(2);
   const tempMax = (parseFloat(resultadoApi.main.temp_max- 273.15,10)).toFixed(2);
@@ -26,4 +27,8 @@ const Clima = ({resultadoApi}) => {
     </>
   );
 }
+Clima.propTypes = {
+  resultadoApi: PropTypes.object.isRequired
+}
+
 export default Clima;

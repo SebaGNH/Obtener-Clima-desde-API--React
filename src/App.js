@@ -2,7 +2,7 @@ import React, {Fragment, useState,useEffect} from 'react';
 import Header from './components/Header';
 import Formulario from './components/Formulario';
 import Clima from './components/Clima';
-
+import Error from './components/Error';
 
 function App() {
   const [busqueda, setBusqueda] = useState({
@@ -11,6 +11,7 @@ function App() {
   });
   const [consultar, setConsutar] = useState(false);
   const [resultadoApi, setResultadoApi] = useState({});
+  const [errorConsulta, setErrorConsulta] = useState(false);
 
   //Para que consulte la api solo si cambia entre true a false
   //Solo consulta si es true
@@ -29,10 +30,30 @@ function App() {
         //console.clear();
         //console.log(data.weather[0].description);
         //console.log(data.name);
+
+        
+        //Detectando error de consulta
+        if (data.cod === "404") { 
+          setErrorConsulta(true);
+        }else{
+          setErrorConsulta(false);
+        }
       }
       consultarApi(); //Se llama adentro
+      //Error de dependencias
+      // eslint-disable-next-line
     }
   },[consultar]);
+
+
+  //Condicional de componentes
+  let componenteErrorClima;
+  if (errorConsulta) {
+    componenteErrorClima = <Error mensaje='No hay resultados'/>   
+  }else{
+    componenteErrorClima = <Clima resultadoApi={resultadoApi} />
+  }
+
 
 
 
@@ -52,9 +73,12 @@ function App() {
               />
             </div>
             <div className="col m6 s12">
-              <Clima
-                resultadoApi={resultadoApi}
-              />
+              {errorConsulta?
+                <Error mensaje='Todos los campos son obligaotiors'/>
+                :
+                null
+              }
+              {componenteErrorClima}
             </div>
           </div>
         </div>
